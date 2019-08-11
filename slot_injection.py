@@ -5,9 +5,11 @@ def find_between( s, first, last, end ):
     try:
         start = s.index( first, end ) + len( first )
         end = s.index( last, start )
-        return s[start:end]
+        return s[start:end], end
     except ValueError:
-        return "NOTFOUND"
+        return "NOTFOUND", 0
+
+
 
 def inject_slot(entity, name):
     host = "192.168.0.156"
@@ -29,6 +31,9 @@ def inject_slot(entity, name):
     myfile.close()
     #os.remove(injectionsfile)
 
+
+
+
 def update_all_slots():
     host = "192.168.0.156"
     injectionsfile = "/hassio/slot_injections.json"
@@ -40,8 +45,7 @@ def update_all_slots():
     contents = myfile.read()       
     myfile.close()   
     while True:  
-        user = find_between( contents, ":\n  name: ", "\n" , end)
-        print(user)
+        user, end = find_between( contents, ":\n  name: ", "\n" , end)
         if user == "NOTFOUND":
             break
         users.append(user)
@@ -66,14 +70,17 @@ def update_all_slots():
 
     myfile.seek(0)
 
-    contents = myfile.read()
-    print(contents)
-    print("Actualizando slots: " + users)
+    print("Actualizando slots: " + str(users))
     os.system("sudo mosquitto_pub" + " -h " + host + " -t hermes/injection/perform -s < " + injectionsfile)
 
     myfile.close()
 
     #os.remove(injectionsfile)
+
+
+
+
+
 
 if __name__ == "__main__":
     if len(sys.argv) == 3:

@@ -115,7 +115,7 @@ def do_update(app):
                 linenum += 1
             f.truncate()
 
-        if "u" in app.options:
+        if "n" in app.options:
             slot_injection.update_all_slots()
 
 
