@@ -3,16 +3,15 @@ import os
 import argparse
 from shutil import copyfile
 from pathlib import Path
-#import slot_injection
-import read_devices
+import slot_injection
 
 class CommandLine:
 
     def parse_bool(self, sval):
-        if sval == "True" or sval == "true" or sval == "yes":
-            return "true"
-        elif sval == "False" or sval == "false" or sval == "no":
-            return "false"
+        if sval == "True" or sval == "true":
+            return "yes"
+        elif sval == "False" or sval == "false":
+            return "no"
         else:
             self.status = False
             return ""
@@ -87,62 +86,37 @@ def do_update(app):
         f.seek(0)
         encontrado = False
         for line in new_f:
-            if "  mac: " + "BT_" + app.mac + "\n" in line:
+            if "  mac: " + app.mac + "\n" in line:
                 encontrado = True
                 break
             linenum += 1
 
-
     if encontrado:
-        old_name = "nnnnnnnn"
-        old_user = "uuuuuuuu"
-
-        startline = linenum - 3    
+        startline = linenum - 2
         with open(myfile,"r+") as f:
             new_f = f.readlines()
             f.seek(0)
             linenum = 0
             for line in new_f:
-                if linenum not in range(startline, startline+7):
+                if linenum not in range(startline, startline+6):
                     f.write(line)
                 elif linenum == startline and "u" in app.options:
-                    old_user = find_between( line, "", ":\n" )
                     f.write(app.user.lower() + ":" + "\n")
-                elif linenum == startline + 1 and "o" in app.options:
-                    f.write("  hide_if_away: " + app.hide + "\n")
-                elif linenum == startline + 4 and "n" in app.options:
-                    name_old = find_between( line, "", ":\n" )
+                elif linenum == startline + 1 and "n" in app.options:
                     f.write("  name: " + app.name + "\n")
-                elif linenum == startline + 5 and "p" in app.options:
+                elif linenum == startline + 3 and "p" in app.options:
                     f.write("  picture: " + app.picture + "\n")
-                elif linenum == startline + 6 and "t" in app.options:
+                elif linenum == startline + 4 and "t" in app.options:
                     f.write("  track: " + app.track + "\n")
+                elif linenum == startline + 5 and "o" in app.options:
+                    f.write("  hide_if_away: " + app.hide + "\n")
                 else:
                     f.write(line)
                 linenum += 1
             f.truncate()
 
-  #      if "n" in app.options:
-  #          slot_injection.update_all_slots()
-
-        myfile = "/hassio/automations.yaml"
-  
-        with open(myfile,"r+") as f:
-            new_f = f.readlines()
-            f.seek(0)
-            for line in new_f:
-                if "u" in app.options and "- id: 'saludo_" + old_user in line:
-                    f.write("- id: 'saludo_" + app.user + "\n")
-                elif "u" in app.options and "    entity_id: device_tracker." + old_user in line:
-                    f.write("    entity_id: device_tracker." + app.user + "\n")
-                elif "n" in app.options and "  alias: Saludar a " + old_name in line:
-                    f.write("  alias: Saludar a " + app.name + "\n")
-                elif "n" in app.options and "      text: \"Hola " + old_name in line:
-                #elif "n" in app.options and "      text: \".*" + old_name + ".*" in line:
-                    f.write("      text: \"Hola " + app.name + "\n")
-                else:
-                    f.write(line)
-
+        if "n" in app.options:
+            slot_injection.update_all_slots()
 
 
 if __name__ == '__main__':
@@ -152,4 +126,65 @@ if __name__ == '__main__':
         do_update(app)
 
 
+
+"""
+def switch_line(startline, linenum, line):
+    return {
+        startline: f.write(app.user.lower() + ":" + "\n"),
+        startline+1: f.write("  name: " + app.name + "\n"),
+        startline+3: f.write("  picture: " + app.picture + "\n"),
+        startline+4: f.write("  track: " + app.track + "\n"),
+        startline+5: f.write("  hide_if_away: " + app.hide + "\n")
+    }.get(linenum, f.write(line)) 
+"""
+
+
+
+"""
+if len(sys.argv) >= 3:
+    mac = sys.argv[1]
+    name = sys.argv[2]
+    if len(sys.argv) > 3:
+        picture = sys.argv[3]
+    else:
+        picture = ""
+else:
+    mac = input("MAC:")
+    name = input("Nombre:")
+    picture = input("Imagen:")
+
+end = 0
+
+def find_between( s, first, last ):
+    try:
+	global end
+        start = s.index( first, end ) + len( first )
+        end = s.index( last, start )
+        return s[start:end]
+    except ValueError:
+	return ""
+
+myfile = open("/hassio/known_devices.yaml", "rt") 
+contents = myfile.read()       
+myfile.close()   
+while True:  
+    user = find_between( contents, ":\n  name: ", "\n" )
+    if user == "":
+	break
+    print user
+
+
+
+
+
+known_devices = "/hassio/known_devices.yaml"
+os.chown(known_devices, uid, gid)
+with open(known_devices, "a") as myfile:
+    myfile.write(	"\n" + str(name).lower() + ":" + 
+			"\n  name: " + str(name) +
+			"\n  mac: " + str(mac) +
+			"\n  picture: " + str(picture) +
+			"\n  track: yes" +
+			"\n  hide_if_away: no\n")     
+"""
 

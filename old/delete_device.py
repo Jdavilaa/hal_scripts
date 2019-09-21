@@ -1,6 +1,7 @@
 import sys 
 import os
 import inspect
+import read_devices
 """
 from pwd import getpwnam
 from grp import getgrnam
@@ -44,10 +45,10 @@ if __name__ == '__main__':
 
     if app.option == 1:         
         busqueda = "  mac: " + app.mac + "\n"
-        row = 3
+        row = 2
     elif app.option == 2:         
         busqueda = app.user + ":\n"
-        row = 4
+        row = 0
 
     linenum = 0
     with open(myfile,"r+") as f:
@@ -62,15 +63,36 @@ if __name__ == '__main__':
 
     if encontrado:
         startblock = linenum - row
-        deleteblock = range(startblock, startblock + 8)
-
+        deleteblock = range(startblock, startblock + 7)
+        old_user = "uuuuuuuu"
+ 
         with open(myfile,"r+") as f:
             new_f = f.readlines()
             f.seek(0)
             linenum = 0
             for line in new_f:
+		if linenum == startblock:  
+                    user = find_between( line, "", ":\n" )
                 if linenum not in deleteblock:
                     f.write(line)
                 linenum += 1
             f.truncate()
+
+
+        myfile = "/hassio/automations.yaml"
+        with open(myfile,"r+") as f:
+            new_f = f.readlines()
+            f.seek(0)
+            for line in new_f:
+                if "u" in app.options and "- id: 'saludo_" + old_user in line:
+                    f.write("- id: 'saludo_" + app.user + "\n")
+                elif "u" in app.options and "    entity_id: device_tracker." + old_user in line:
+                    f.write("    entity_id: device_tracker." + app.user + "\n")
+                elif "n" in app.options and "  alias: Saludar a " + old_name in line:
+                    f.write("  alias: Saludar a " + app.name + "\n")
+                elif "n" in app.options and "      text: \"Hola " + old_name in line:
+                #elif "n" in app.options and "      text: \".*" + old_name + ".*" in line:
+                    f.write("      text: \"Hola " + app.name + "\n")
+                else:
+                    f.write(line)
 
