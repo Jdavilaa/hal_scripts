@@ -2,9 +2,20 @@ import sys
 import os
 import argparse
 from shutil import copyfile
-from pathlib import Path
+#from pathlib import Path
 #import slot_injection
-import read_devices
+
+end = 0
+
+def find_between( s, first, last ):
+    try:
+        global end
+        start = s.index( first, end ) + len( first )
+        end = s.index( last, start )
+        return s[start:end]
+    except ValueError:
+        return ""
+
 
 class CommandLine:
 
@@ -47,7 +58,8 @@ class CommandLine:
 
         if argument.picturepath:
             src = argument.picturepath
-            filename = Path(src).name
+            filename = os.path.basename(src)
+            #filename = Path(src).name
             if not os.path.exists("/hassio/www/"):
                 os.makedirs("/hassio/www/")
 	    #copyfile(src, "/home/pi/homeassistant/www/" + filename)

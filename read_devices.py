@@ -11,9 +11,9 @@ def find_between( s, first, last ):
 
 myfile = open("/hassio/known_devices.yaml", "rt") 
 contents = myfile.read()       
-myfile.close()   
+myfile.close()  
 while True:  
-    user = find_between( contents, ":\n  name: ", "\n" )
+    user = find_between( contents, "\n  name: ", "\n" )
     if user == "":
         break
     print (user)

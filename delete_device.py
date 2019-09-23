@@ -43,7 +43,7 @@ if __name__ == '__main__':
     myfile = "/hassio/known_devices.yaml" 
 
     if app.option == 1:         
-        busqueda = "  mac: " + app.mac + "\n"
+        busqueda = "  mac: BT_" + app.mac + "\n"
         row = 3
     elif app.option == 2:         
         busqueda = app.user + ":\n"

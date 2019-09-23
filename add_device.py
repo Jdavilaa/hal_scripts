@@ -1,5 +1,8 @@
 import sys 
 import os
+import argparse
+#from pathlib import Path
+from shutil import copyfile
 #import slot_injection
 
 from pwd import getpwnam
@@ -32,6 +35,7 @@ class CommandLine:
         status = False
         self.status = True
         self.options = []
+        self.picture = ""
 
         self.mac = "{0}".format(argument.MAC)
 
@@ -47,10 +51,11 @@ class CommandLine:
 
         if argument.picturepath:
             src = argument.picturepath
-            filename = Path(src).name
+            filename = os.path.basename(src)
+            #filename = Path(src).name
             if not os.path.exists("/hassio/www/"):
                 os.makedirs("/hassio/www/")
-	    #copyfile(src, "/home/pi/homeassistant/www/" + filename)
+            #copyfile(src, "/home/pi/homeassistant/www/" + filename)
             copyfile(src, "/hassio/www/" + filename)
             self.picture = "{0}".format("/local/" + filename)
             status = True
@@ -82,22 +87,13 @@ class CommandLine:
 def do_add(app): 
     myfile = "/hassio/known_devices.yaml"
 
-    uid = getpwnam("usuario")[2]
-    gid = getgrnam("usuario")[2]
+    usuario = os.environ.get('USER');
+    uid = getpwnam(usuario)[2]
+    gid = getgrnam(usuario)[2]
     os.chown(myfile, uid, gid)
 
     if "u" not in app.options:
         app.user = app.name.lower()
-                elif linenum == startline + 1 and "o" in app.options:
-                    f.write("  hide_if_away: " + app.hide + "\n")
-                elif linenum == startline + 4 and "n" in app.options:
-                    f.write("  name: " + app.name + "\n")
-                elif linenum == startline + 5 and "p" in app.options:
-                    f.write("  picture: " + app.picture + "\n")
-                elif linenum == startline + 6 and "t" in app.options:
-                    f.write("  track: " + app.track + "\n")
-                else:
-                    f.write(line)
 
 
     with open(myfile,"a") as f:
@@ -119,7 +115,7 @@ def do_add(app):
 		"\n  alias: Saludar a " + app.name +
 		"\n  trigger:" +
 		"\n  - platform: state" +
-		"\n    entity_id: device_tracker." + app.user
+		"\n    entity_id: device_tracker." + app.user +
 		"\n    from: not_home" +
 		"\n    to: home" +
 		"\n  condition:" +
