@@ -1,7 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-
 import sys 
 import os
 import argparse
@@ -30,16 +26,12 @@ class CommandLine:
         parser.add_argument("-M", "--MAC", help = "Example: 64:88:76:87:32", required = True, default = "")
         parser.add_argument("-u", "--user", help = "Example: johndoe", required = False, default = "")
         parser.add_argument("-n", "--name", help = "Example: John Doe", required = True, default = "")
-        parser.add_argument("-pp", "--picturepath", help = "/home/usuario/img/image.jpg", required = False, default = "")
-        parser.add_argument("-pu", "--pictureurl", help = "https://icons.org/images/image.jpg", required = False, default = "")
-        parser.add_argument("-t", "--track", help = "Example: true", required = False, default = "true")
-        parser.add_argument("-o", "--hide", help = "Example: false", required = False, default = "false")
+        parser.add_argument("-m", "--message", help = "Example: Buenos días Mariano", required = False, default = "")
 
         argument = parser.parse_args()
         status = False
         self.status = True
         self.options = []
-        self.picture = ""
 
         self.mac = "{0}".format(argument.MAC)
         if not self.mac.startswith('BT_'):
@@ -55,32 +47,10 @@ class CommandLine:
             status = True
             self.options.append("n")
 
-        if argument.picturepath:
-            src = argument.picturepath
-            filename = os.path.basename(src)
-            #filename = Path(src).name
-            if not os.path.exists("/hassio/www/"):
-                os.makedirs("/hassio/www/")
-            #copyfile(src, "/home/pi/homeassistant/www/" + filename)
-            copyfile(src, "/hassio/www/" + filename)
-            self.picture = "{0}".format("/local/" + filename)
+        if argument.message:
+            self.message = "{0}".format(argument.message)
             status = True
-            self.options.append("p")
-
-        if argument.pictureurl:
-            self.picture = "{0}".format(argument.pictureurl)
-            status = True
-            self.options.append("p")
-
-        if argument.track:
-            self.track = self.parse_bool("{0}".format(argument.track))
-            status = True
-            self.options.append("t")
-
-        if argument.hide:
-            self.hide = self.parse_bool("{0}".format(argument.hide))
-            status = True
-            self.options.append("o")
+            self.options.append("m")
 
         if not self.status:
             print("Maybe you want to use True, true, False or false to boolean arguments") 
@@ -93,25 +63,36 @@ class CommandLine:
 def do_add(app): 
     myfile = "/hassio/known_devices.yaml"
 
-    usuario = os.environ.get('USER')
+    usuario = os.environ.get('USER');
     uid = getpwnam(usuario)[2]
     gid = getgrnam(usuario)[2]
-    os.chown(myfile, uid, gid)
 
     if "u" not in app.options:
         app.user = app.name.lower()
 
+    if "m" not in app.options:
+        app.message = "Saludos "+ app.name
+
+    myfile = "/hassio/automations.yaml"
+    os.chown(myfile, uid, gid)
 
     with open(myfile,"a") as f:
-        f.write("" + app.user + ":" + 
-		"\n  hide_if_away: " + app.hide +
-		"\n  icon: " +
-		"\n  mac: " + app.mac +
-		"\n  name: " + app.name +
-		"\n  picture: " + app.picture +
-		"\n  track: " + app.track + "\n\n") 
-  
-    #inject_slot("username", app.name)   
+        f.write("\n- id: 'saludo_" + app.user + "'" +
+		"\n  alias: Saludar a " + app.name +
+		"\n  trigger:" +
+		"\n  - platform: state" +
+		"\n    entity_id: device_tracker." + app.user +
+		"\n    from: not_home" +
+		"\n    to: home" +
+		"\n  condition:" +
+		"\n    condition: time" +
+		"\n    after: '12:00:00'" +
+		"\n    before: '00:00:00'" +
+		"\n  action:" +
+		"\n  - service: snips.say" +
+		"\n    data:" +
+		"\n      text: \""+ app.message +"\"\n") 
+
 
 
 if __name__ == '__main__':

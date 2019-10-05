@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+
 import sys 
 import os
 import argparse
@@ -45,6 +49,8 @@ class CommandLine:
         self.options = []
 
         self.mac = "{0}".format(argument.MAC)
+        if not self.mac.startswith('BT_'):
+            self.mac = "BT_" + self.mac
 
         if argument.user:
             self.user = "{0}".format(argument.user)
@@ -93,41 +99,40 @@ class CommandLine:
 
 def do_update(app):
     myfile = "/hassio/known_devices.yaml"
-    linenum = 0
+    startline = -1
+    endline = 0
     with open(myfile,"r+") as f:
         new_f = f.readlines()
-        f.seek(0)
-        encontrado = False
-        for line in new_f:
-            if "  mac: " + "BT_" + app.mac + "\n" in line:
-                encontrado = True
-                break
-            linenum += 1
+
+    for line in new_f:
+
+        if "  mac: " + app.mac + "\n" in line:
+            startline = endline - 3
+        if startline >= 0 and line in ['\n', '\r\n']: 
+            break
+        endline += 1
 
 
-    if encontrado:
-        old_name = "nnnnnnnn"
-        old_user = "uuuuuuuu"
+    if startline >= 0:
 
-        startline = linenum - 3    
+        linenum = 0
         with open(myfile,"r+") as f:
+
             new_f = f.readlines()
             f.seek(0)
-            linenum = 0
+
             for line in new_f:
-                if linenum not in range(startline, startline+7):
+                if linenum not in range(startline, endline):
                     f.write(line)
                 elif linenum == startline and "u" in app.options:
-                    old_user = find_between( line, "", ":\n" )
                     f.write(app.user.lower() + ":" + "\n")
-                elif linenum == startline + 1 and "o" in app.options:
+                elif "o" in app.options and "hide_if_away:" in line:
                     f.write("  hide_if_away: " + app.hide + "\n")
-                elif linenum == startline + 4 and "n" in app.options:
-                    name_old = find_between( line, "", ":\n" )
+                elif "n" in app.options and "name:" in line:
                     f.write("  name: " + app.name + "\n")
-                elif linenum == startline + 5 and "p" in app.options:
+                elif "p" in app.options and "picture:" in line:
                     f.write("  picture: " + app.picture + "\n")
-                elif linenum == startline + 6 and "t" in app.options:
+                elif "t" in app.options and "track:" in line:
                     f.write("  track: " + app.track + "\n")
                 else:
                     f.write(line)
@@ -136,24 +141,6 @@ def do_update(app):
 
   #      if "n" in app.options:
   #          slot_injection.update_all_slots()
-
-        myfile = "/hassio/automations.yaml"
-  
-        with open(myfile,"r+") as f:
-            new_f = f.readlines()
-            f.seek(0)
-            for line in new_f:
-                if "u" in app.options and "- id: 'saludo_" + old_user in line:
-                    f.write("- id: 'saludo_" + app.user + "\n")
-                elif "u" in app.options and "    entity_id: device_tracker." + old_user in line:
-                    f.write("    entity_id: device_tracker." + app.user + "\n")
-                elif "n" in app.options and "  alias: Saludar a " + old_name in line:
-                    f.write("  alias: Saludar a " + app.name + "\n")
-                elif "n" in app.options and "      text: \"Hola " + old_name in line:
-                #elif "n" in app.options and "      text: \".*" + old_name + ".*" in line:
-                    f.write("      text: \"Hola " + app.name + "\n")
-                else:
-                    f.write(line)
 
 
 
