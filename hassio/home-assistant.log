@@ -1,0 +1,4 @@
+2019-10-06 18:02:47 ERROR (SyncWorker_1) [homeassistant.util.yaml.loader] mapping values are not allowed here
+  in "/config/automations.yaml", line 11, column 11
+2019-10-06 18:02:47 ERROR (MainThread) [homeassistant.bootstrap] Error loading /config/configuration.yaml: mapping values are not allowed here
+  in "/config/automations.yaml", line 11, column 11

@@ -1,0 +1,27 @@
+
+- id: 'saluda_al_entrar'
+  alias: Home Greets
+  trigger:
+  - platform: state
+    entity_id: device_tracker.jose
+    from: not_home
+    to: home
+  sequence:
+    service: snips.say_action
+      data:
+        text: 'Hola jose, ¿quieres algo?'
+        intent_filter:
+          - contarChiste
+
+#ENVIAR MENSAJE POR TOPIC NLU??
+
+- alias: Notify when new device discovered
+  trigger:
+    platform: event
+    event_type: device_tracker_new_device
+  action:
+  - service: snips.say
+    data:
+      text: '¡Hola desconocido!'
+#      text: 'Nuevo dispositivo, ({{trigger.event.data.entity_id}}) Hola {{trigger.event.data.host_name}}'
+

@@ -1,0 +1,14 @@
+{
+    "data": {
+        "persons": [
+            {
+                "device_trackers": [],
+                "id": "d3f9c92f7d1348e0a60ebd34290ef830",
+                "name": "jdavila",
+                "user_id": "5eb12a3ad4084a23b50180ac71eeb16f"
+            }
+        ]
+    },
+    "key": "person",
+    "version": 1
+}

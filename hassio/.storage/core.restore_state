@@ -1,0 +1,250 @@
+{
+    "data": [
+        {
+            "last_seen": "2019-08-23T22:48:24.062834+00:00",
+            "state": {
+                "attributes": {
+                    "editable": true,
+                    "friendly_name": "jdavila",
+                    "id": "d3f9c92f7d1348e0a60ebd34290ef830",
+                    "user_id": "5eb12a3ad4084a23b50180ac71eeb16f"
+                },
+                "context": {
+                    "id": "c4c1a3cbc0a7428f989b5ef301049313",
+                    "parent_id": null,
+                    "user_id": null
+                },
+                "entity_id": "person.jdavila",
+                "last_changed": "2019-08-23T15:08:50.216318+00:00",
+                "last_updated": "2019-08-23T15:09:15.728872+00:00",
+                "state": "unknown"
+            }
+        },
+        {
+            "last_seen": "2019-08-23T22:48:24.062834+00:00",
+            "state": {
+                "attributes": {
+                    "entity_picture": "https://icon-library.net/images/face-icon-png/face-icon-png-5.jpg",
+                    "friendly_name": "Josean",
+                    "source_type": "bluetooth"
+                },
+                "context": {
+                    "id": "38154616ddde47cc8a5e2aac69151f0c",
+                    "parent_id": null,
+                    "user_id": null
+                },
+                "entity_id": "device_tracker.josean",
+                "last_changed": "2019-08-23T15:39:30.003001+00:00",
+                "last_updated": "2019-08-23T15:39:30.003001+00:00",
+                "state": "not_home"
+            }
+        },
+        {
+            "last_seen": "2019-08-23T22:48:24.062834+00:00",
+            "state": {
+                "attributes": {
+                    "friendly_name": "Dani",
+                    "icon": "https://icon-library.net/images/face-icon-png/face-icon-png-5.jpg",
+                    "source_type": null
+                },
+                "context": {
+                    "id": "8f5a720238534082a5e27b2f3f04e381",
+                    "parent_id": null,
+                    "user_id": null
+                },
+                "entity_id": "device_tracker.movil_dani",
+                "last_changed": "2019-08-23T15:09:15.726362+00:00",
+                "last_updated": "2019-08-23T15:09:15.726362+00:00",
+                "state": "not_home"
+            }
+        },
+        {
+            "last_seen": "2019-08-23T22:48:24.062834+00:00",
+            "state": {
+                "attributes": {
+                    "friendly_name": "EQUIPO",
+                    "source_type": null
+                },
+                "context": {
+                    "id": "5479094a1ff94b3fab6fdec4d082a8a6",
+                    "parent_id": null,
+                    "user_id": null
+                },
+                "entity_id": "device_tracker.newdevice",
+                "last_changed": "2019-08-23T15:09:15.726906+00:00",
+                "last_updated": "2019-08-23T15:09:15.726906+00:00",
+                "state": "not_home"
+            }
+        },
+        {
+            "last_seen": "2019-08-23T22:48:24.062834+00:00",
+            "state": {
+                "attributes": {
+                    "friendly_name": "Home Greets",
+                    "id": "saluda_al_entrar",
+                    "last_triggered": "2019-08-23T16:48:29.696411+00:00"
+                },
+                "context": {
+                    "id": "7687a2d67e314318b5f9cf9c1a2690dd",
+                    "parent_id": null,
+                    "user_id": null
+                },
+                "entity_id": "automation.home_greets",
+                "last_changed": "2019-08-23T22:29:20.293072+00:00",
+                "last_updated": "2019-08-23T22:29:20.293072+00:00",
+                "state": "on"
+            }
+        },
+        {
+            "last_seen": "2019-08-23T22:48:24.062834+00:00",
+            "state": {
+                "attributes": {
+                    "friendly_name": "Home Greets 2",
+                    "id": "saluda_al_entrar2",
+                    "last_triggered": "2019-08-23T16:54:15.192706+00:00"
+                },
+                "context": {
+                    "id": "37994b7a537745f896b2e424320452c9",
+                    "parent_id": null,
+                    "user_id": null
+                },
+                "entity_id": "automation.home_greets_2",
+                "last_changed": "2019-08-23T22:29:20.293386+00:00",
+                "last_updated": "2019-08-23T22:29:20.293386+00:00",
+                "state": "on"
+            }
+        },
+        {
+            "last_seen": "2019-08-23T22:48:24.062834+00:00",
+            "state": {
+                "attributes": {
+                    "friendly_name": "Not Home Greets 2",
+                    "id": "saluda_al_salir2",
+                    "last_triggered": "2019-08-23T22:29:37.689716+00:00"
+                },
+                "context": {
+                    "id": "b685093469ea4e72bee5ac486bb0e363",
+                    "parent_id": "7c6132fb2d2e46f8bfda8753494b6959",
+                    "user_id": null
+                },
+                "entity_id": "automation.not_home_greets_2",
+                "last_changed": "2019-08-23T22:29:20.293683+00:00",
+                "last_updated": "2019-08-23T22:29:37.690066+00:00",
+                "state": "on"
+            }
+        },
+        {
+            "last_seen": "2019-08-23T22:48:24.062834+00:00",
+            "state": {
+                "attributes": {
+                    "friendly_name": "Not Home Greets",
+                    "id": "saluda_al_salir",
+                    "last_triggered": "2019-08-23T09:25:22.554481+00:00"
+                },
+                "context": {
+                    "id": "9ffc7366907d49ef8a1f11649274d43d",
+                    "parent_id": null,
+                    "user_id": null
+                },
+                "entity_id": "automation.not_home_greets",
+                "last_changed": "2019-08-23T22:29:20.293979+00:00",
+                "last_updated": "2019-08-23T22:29:20.293979+00:00",
+                "state": "on"
+            }
+        },
+        {
+            "last_seen": "2019-08-21T15:29:57.486742+00:00",
+            "state": {
+                "attributes": {
+                    "entity_picture": "https://icon-library.net/images/face-icon-png/face-icon-png-5.jpg",
+                    "friendly_name": "Rodolfo",
+                    "source_type": null
+                },
+                "context": {
+                    "id": "97414ae9a0b94b978a69f48d60970a62",
+                    "parent_id": null,
+                    "user_id": null
+                },
+                "entity_id": "device_tracker.rodolfo",
+                "last_changed": "2019-08-21T15:28:00.443560+00:00",
+                "last_updated": "2019-08-21T15:28:00.443560+00:00",
+                "state": "not_home"
+            }
+        },
+        {
+            "last_seen": "2019-08-21T15:29:57.486742+00:00",
+            "state": {
+                "attributes": {
+                    "friendly_name": "EQUIPO",
+                    "source_type": null
+                },
+                "context": {
+                    "id": "f0926e67c092460cbff6574cf3042134",
+                    "parent_id": null,
+                    "user_id": null
+                },
+                "entity_id": "device_tracker.equipo",
+                "last_changed": "2019-08-21T15:28:00.444272+00:00",
+                "last_updated": "2019-08-21T15:28:00.444272+00:00",
+                "state": "not_home"
+            }
+        },
+        {
+            "last_seen": "2019-08-21T15:27:30.490865+00:00",
+            "state": {
+                "attributes": {
+                    "friendly_name": "redmi3",
+                    "source_type": null
+                },
+                "context": {
+                    "id": "8e71285916c34bb381b88556a38489bf",
+                    "parent_id": null,
+                    "user_id": null
+                },
+                "entity_id": "device_tracker.mi_movil",
+                "last_changed": "2019-08-21T15:24:43.464766+00:00",
+                "last_updated": "2019-08-21T15:24:43.464766+00:00",
+                "state": "not_home"
+            }
+        },
+        {
+            "last_seen": "2019-08-21T15:27:30.490865+00:00",
+            "state": {
+                "attributes": {
+                    "friendly_name": "DESKTOP-J47SS9U",
+                    "source_type": null
+                },
+                "context": {
+                    "id": "4089b77bf63046258ff0fa61aeeb3bc3",
+                    "parent_id": null,
+                    "user_id": null
+                },
+                "entity_id": "device_tracker.desktop_j47ss9u",
+                "last_changed": "2019-08-21T15:24:43.465136+00:00",
+                "last_updated": "2019-08-21T15:24:43.465136+00:00",
+                "state": "not_home"
+            }
+        },
+        {
+            "last_seen": "2019-08-23T15:16:14.720982+00:00",
+            "state": {
+                "attributes": {
+                    "friendly_name": "Home Greets",
+                    "id": "saluda_al_entrar3",
+                    "last_triggered": "2019-08-23T15:13:03.913094+00:00"
+                },
+                "context": {
+                    "id": "1988aa2fb0da4812b96e054dbbaa1764",
+                    "parent_id": "15b2642b50e94f06a0c2af0a8bae4a73",
+                    "user_id": null
+                },
+                "entity_id": "automation.home_greets_3",
+                "last_changed": "2019-08-23T15:11:47.990514+00:00",
+                "last_updated": "2019-08-23T15:13:03.913418+00:00",
+                "state": "on"
+            }
+        }
+    ],
+    "key": "core.restore_state",
+    "version": 1
+}

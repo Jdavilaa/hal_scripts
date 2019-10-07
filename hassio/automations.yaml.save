@@ -1,0 +1,91 @@
+- id: 'saluda_al_entrar'
+  alias: Home Greets
+  trigger:
+  - platform: state
+    entity_id: device_tracker.josean
+    from: not_home
+    to: home
+  action:
+  - service: snips.say
+    data:
+      text: "Probando config UNO"
+
+- id: 'saluda_al_salir'
+  alias: Not Home Greets
+  trigger:
+    platform: state
+    entity_id: device_tracker.josean
+    from: home
+    to: not_home
+  action:
+  - service: mqtt.publish
+    data:
+      topic: "hermes/tts/say"
+      payload: '{"text":"Probando config Dos","lang":"es"}'
+
+- id: 'saluda_al_entrar2'
+  alias: Home Greets 2
+  trigger:
+  - platform: state
+    entity_id: device_tracker.movil_dani
+    from: not_home
+    to: home
+  action:
+  - service: mqtt.publish
+    data:
+      topic: "hermes/dialogueManager/startSession"
+      payload: '{"init":{"type":"notification", "text":"Probando config tres"}}'
+
+- id: 'saluda_al_salir2'
+  alias: Not Home Greets 2
+  trigger:
+    platform: state
+    entity_id: device_tracker.josean
+    from: home
+    to: not_home
+  action:
+  - service: mqtt.publish
+    data:
+      topic: "hermes/intent/jdavila:decirHola"
+      payload: >
+        {{
+        "input": "saluda a Josean",
+        
+"intent": {
+          "intentName": "jdavila:decirHola",
+          "confidenceScore": 1
+        },
+        "slots": [
+          {
+            "rawValue": "josean",
+            "value": {
+              "kind": "Custom",
+              "value": "Josean"
+            },
+            "range": {
+              "start": 9,
+              "end": 13
+            },
+            "entity": "username",
+            "slotName": "user"
+          }
+        ]
+        }}
+
+
+
+
+
+
+
+  action:
+  - service: mqtt.publish
+    data_template:
+      entity_id: >
+        {% if is_state('sun.sun', 'below_horizon') %}
+          topic: "hermes/dialogueManager/startSession"
+          payload: '{"init":{"type":"notification", "text":"Probando config tres"}}'
+        {% else %}
+          topic: "hermes/dialogueManager/startSession"
+          payload: '{"init":{"type":"notification", "text":"Probando config tres"}}'
+        {% endif %}

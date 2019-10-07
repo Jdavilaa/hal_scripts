@@ -1,0 +1,17 @@
+{
+    "data": {
+        "entities": [
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "person.jdavila",
+                "name": null,
+                "platform": "person",
+                "unique_id": "d3f9c92f7d1348e0a60ebd34290ef830"
+            }
+        ]
+    },
+    "key": "core.entity_registry",
+    "version": 1
+}
