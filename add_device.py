@@ -91,7 +91,7 @@ class CommandLine:
 
 
 def do_add(app): 
-    myfile = "/hassio/known_devices.yaml"
+    myfile = "/homeassistant/known_devices.yaml"
 
     usuario = os.environ.get('USER')
     uid = getpwnam(usuario)[2]

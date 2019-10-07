@@ -9,7 +9,7 @@ def find_between( s, first, last ):
     except ValueError:
         return ""
 
-myfile = open("/hassio/known_devices.yaml", "rt") 
+myfile = open("/homeassistant/known_devices.yaml", "rt") 
 contents = myfile.read()       
 myfile.close()  
 while True:  

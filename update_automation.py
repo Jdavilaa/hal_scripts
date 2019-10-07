@@ -78,7 +78,7 @@ class CommandLine:
 
 def do_update(app):
 
-    myfile = "/hassio/automations.yaml"
+    myfile = "/homeassistant/automations.yaml"
     startline = -1
     endline = 0
 

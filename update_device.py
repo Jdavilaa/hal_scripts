@@ -98,7 +98,7 @@ class CommandLine:
 
 
 def do_update(app):
-    myfile = "/hassio/known_devices.yaml"
+    myfile = "/homeassistant/known_devices.yaml"
     startline = -1
     endline = 0
     with open(myfile,"r+") as f:

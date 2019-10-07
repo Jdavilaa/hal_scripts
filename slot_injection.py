@@ -13,7 +13,7 @@ def find_between( s, first, last, end ):
 
 def inject_slot(entity, name):
     host = "192.168.0.156"
-    injectionsfile = "/hassio/slot_injections.json"
+    injectionsfile = "/homeassistant/slot_injections.json"
 
     myfile = open(injectionsfile, "w+")
     myfile.write(	'\n{\n    "operations": [\n' +
@@ -36,12 +36,12 @@ def inject_slot(entity, name):
 
 def update_all_slots():
     host = "192.168.0.156"
-    injectionsfile = "/hassio/slot_injections.json"
+    injectionsfile = "/homeassistant/slot_injections.json"
 
     #Lectura de usuarios
     users = []
     end = 0
-    myfile = open("/hassio/known_devices.yaml", "rt") 
+    myfile = open("/homeassistant/known_devices.yaml", "rt") 
     contents = myfile.read()       
     myfile.close()   
     while True:  

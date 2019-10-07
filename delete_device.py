@@ -25,7 +25,7 @@ class CommandLine:
 if __name__ == '__main__':
     app = CommandLine()
 
-    myfile = "/hassio/known_devices.yaml" 
+    myfile = "/homeassistant/known_devices.yaml" 
   
     startline = -1
     endline = 0

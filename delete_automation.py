@@ -34,7 +34,7 @@ class CommandLine:
 if __name__ == '__main__':
     app = CommandLine()
 
-    myfile = "/hassio/automations.yaml" 
+    myfile = "/homeassistant/automations.yaml" 
 
     
     ignorar_linea = False
