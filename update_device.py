@@ -66,10 +66,10 @@ class CommandLine:
             src = argument.picturepath
             filename = os.path.basename(src)
             #filename = Path(src).name
-            if not os.path.exists("/hassio/www/"):
-                os.makedirs("/hassio/www/")
+            if not os.path.exists("/homeassistant/www/"):
+                os.makedirs("/homeassistant/www/")
 	    #copyfile(src, "/home/pi/homeassistant/www/" + filename)
-            copyfile(src, "/hassio/www/" + filename)
+            copyfile(src, "/homeassistant/www/" + filename)
             self.picture = "{0}".format("/local/" + filename)
             status = True
             self.options.append("p")

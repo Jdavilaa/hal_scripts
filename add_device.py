@@ -59,10 +59,10 @@ class CommandLine:
             src = argument.picturepath
             filename = os.path.basename(src)
             #filename = Path(src).name
-            if not os.path.exists("/hassio/www/"):
-                os.makedirs("/hassio/www/")
+            if not os.path.exists("/homeassistant/www/"):
+                os.makedirs("/homeassistant/www/")
             #copyfile(src, "/home/pi/homeassistant/www/" + filename)
-            copyfile(src, "/hassio/www/" + filename)
+            copyfile(src, "/homeassistant/www/" + filename)
             self.picture = "{0}".format("/local/" + filename)
             status = True
             self.options.append("p")
@@ -96,13 +96,15 @@ def do_add(app):
     usuario = os.environ.get('USER')
     uid = getpwnam(usuario)[2]
     gid = getgrnam(usuario)[2]
-    os.chown(myfile, uid, gid)
+    if os.path.exists(myfile):
+        os.chown(myfile, uid, gid)
 
     if "u" not in app.options:
         app.user = app.name.lower()
+        app.user = app.user.replace(" ","_")
 
 
-    with open(myfile,"a") as f:
+    with open(myfile,"a+") as f:
         f.write("" + app.user + ":" + 
 		"\n  hide_if_away: " + app.hide +
 		"\n  icon: " +

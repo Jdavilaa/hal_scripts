@@ -66,7 +66,6 @@ class CommandLine:
 
 
 def do_add(app): 
-    myfile = "/homeassistant/known_devices.yaml"
 
     usuario = os.environ.get('USER')
     uid = getpwnam(usuario)[2]
@@ -74,12 +73,19 @@ def do_add(app):
 
     if "u" not in app.options:
         app.user = app.name.lower()
+        app.user = app.user.replace(" ","_")
 
     if "m" not in app.options:
         app.message = "Saludos "+ app.name
 
-    myfile = "/hassio/automations.yaml"
-    os.chown(myfile, uid, gid)
+    myfile = "/homeassistant/automations.yaml"
+    if os.path.exists(myfile):
+        os.chown(myfile, uid, gid)
+
+    with open(myfile,"r+") as f:
+        first_line = f.readline()
+        if "[]" in first_line:
+            f.truncate()
 
     with open(myfile,"a") as f:
         f.write("- id: 'saludo_" + app.mac[::3] + app.mac[1::3] + "'" +

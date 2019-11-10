@@ -112,7 +112,7 @@ def do_update(app):
                 elif "n" in app.options and "  alias:" in line:
                     f.write("  alias: Saludar a " + app.name + "\n")
                 elif "m" in app.options and "text:" in line:
-                    f.write("      text: \" " + app.message + "\n")
+                    f.write("      text: \"" + app.message + "\"\n")
                 else:
                     f.write(line)
                 linenum += 1

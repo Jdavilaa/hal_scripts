@@ -14,6 +14,7 @@ contents = myfile.read()
 myfile.close()  
 while True:  
     user = find_between( contents, "\n  name: ", "\n" )
+    # mac = find_between( contents, "\n mac: ", "\n" )
     if user == "":
         break
     print (user)
